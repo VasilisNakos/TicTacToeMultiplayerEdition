@@ -28,6 +28,6 @@ public class MainActivity extends AppCompatActivity {
         decorView.setSystemUiVisibility(uiOptions);
         getSupportActionBar().hide();
 
-
+        //hello
     }
 }
