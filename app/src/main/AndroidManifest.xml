@@ -10,8 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TicTacToeMultiplayerEdition">
         <activity
+            android:name=".MainScreen"
+            android:exported="true" />
+        <activity
             android:name=".SIGN_UP"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true" />
