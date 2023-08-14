@@ -17,6 +17,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,6 +36,15 @@ public class SIGN_UP extends AppCompatActivity {
         FirebaseAuth auth;
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
+
+        ImageButton back_button = findViewById(R.id.back_button);
+
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
@@ -60,25 +71,28 @@ public class SIGN_UP extends AppCompatActivity {
                 String email = email_field.getText().toString();
                 String password = password_field.getText().toString();
                 String username = username_field.getText().toString();
-                if(flag_password){
+                boolean not_found_problem = true;
 
-                }else{
+                if(!flag_password ){
                     error_textview.setText("Passwords don't much");
                     error_textview.setVisibility(View.VISIBLE);
                     flag = false;
+                    not_found_problem = false;
                 }
                 String emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
                 Pattern pattern = Pattern.compile(emailRegex);
                 Matcher matcher = pattern.matcher(email);
-                if(matcher.matches()){
-
-                }else{
+                if(!matcher.matches() && not_found_problem){
                     error_textview.setText("email is not valid");
                     error_textview.setVisibility(View.VISIBLE);
                     flag = false;
+                    not_found_problem = false;
                 }
+
+
                 if(flag){
-                    sign_up_user(auth,email,password,username,db);
+                    check_if_username_exists(db,username,password,email,auth,error_textview);
+
                 }
 
 
@@ -94,8 +108,8 @@ public class SIGN_UP extends AppCompatActivity {
             if(task.isSuccessful()){
                 FirebaseUser user = auth.getCurrentUser();
                 String userId = user.getUid();
-                USER newUser = new USER(userId,email,username);
-                db.collection("usernames").document(userId).set(newUser);
+                USER newUser = new USER(userId,email,username,"200","###");
+                db.collection("users").document(userId).set(newUser);
                 Intent main_sceen_intent = new Intent(this, MainScreen.class);
                 startActivity(main_sceen_intent);
 
@@ -105,6 +119,28 @@ public class SIGN_UP extends AppCompatActivity {
                 System.out.println("Problem signing up");
             }
         });
+    }
+
+    void check_if_username_exists(FirebaseFirestore db, String username,String password,String email,FirebaseAuth auth,TextView error){
+
+        db.collection("users").whereEqualTo("username",username).get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                boolean usernameExists = !task.getResult().isEmpty();
+
+                if(usernameExists){
+                    error.setText("Username already exists");
+                    error.setVisibility(View.VISIBLE);
+                }else{
+                    sign_up_user(auth,email,password,username,db);
+                }
+
+            }else{
+                error.setText("Something went wrong please try again");
+                error.setVisibility(View.VISIBLE);
+            }
+        });
+
+
     }
 
 

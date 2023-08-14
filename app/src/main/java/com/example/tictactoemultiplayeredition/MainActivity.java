@@ -16,12 +16,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final ImageButton sign_up_btn = (ImageButton) findViewById(R.id.sign_up_button);
-        Intent secondActivityIntent = new Intent(this, SIGN_UP.class);
+        final ImageButton login_button = findViewById(R.id.login_button);
+        Intent sign_up_activity = new Intent(this, SIGN_UP.class);
+        Intent login_in_activity = new Intent(this,LOG_IN.class);
         sign_up_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                startActivity(secondActivityIntent);
+                startActivity(sign_up_activity);
             }
         });
+        login_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(login_in_activity);
+            }
+        });
+
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN;

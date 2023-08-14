@@ -4,6 +4,10 @@ public class USER {
     String user_id;
     String email;
     String username;
+    String points;
+    String pfp_id;
+
+
 
     public String getUser_id() {
         return user_id;
@@ -29,10 +33,27 @@ public class USER {
         this.username = username;
     }
 
-    public USER(String user_id, String email, String username) {
+    public String getPoints() {
+        return points;
+    }
+
+    public void setPoints(String points) {
+        this.points = points;
+    }
+
+    public String getPfp_id() {
+        return pfp_id;
+    }
+
+    public void setPfp_id(String pfp_id) {
+        this.pfp_id = pfp_id;
+    }
+
+    public USER(String user_id, String email, String username, String points, String pfp_id) {
         this.user_id = user_id;
         this.email = email;
         this.username = username;
+        this.points = points;
+        this.pfp_id = pfp_id;
     }
-
 }

@@ -15,20 +15,97 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class MainScreen extends AppCompatActivity {
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class MainScreen extends AppCompatActivity implements Serializable {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
-        ImageView user_pfp = findViewById(R.id.user_pfp);
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        TextView username_textview = findViewById(R.id.user_Username);
+        TextView points_textview = findViewById(R.id.user_points);
+        //Initializing leaderboard fields
+        TextView top1_username = findViewById(R.id.top1_user_username);
+        TextView top1_points = findViewById(R.id.top1_user_points);
+        TextView top2_username = findViewById(R.id.top2_user_username);
+        TextView top2_points = findViewById(R.id.top2_user_points);
+        TextView top3_username = findViewById(R.id.top3_user_username);
+        TextView top3_points = findViewById(R.id.top3_user_points);
+
+
+
+
+        //here we will set the username and points of the user
+       db.collection("users").document(user.getUid())
+               .get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                DocumentSnapshot document = task.getResult();
+                if(document.exists()){
+                    String username = document.getString("username");
+                    String points = document.getString("points");
+                    username_textview.setText(username);
+                    points_textview.setText(points);
+
+                }else{
+                    //handling with an error pop up
+                }
+            }
+        });
+       //here we will fill the leaderboard
+        Query leaderboard_query = db.collection("users")
+                .orderBy("points",Query.Direction.DESCENDING).limit(3);
+        leaderboard_query.get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                QuerySnapshot querySnapshots = task.getResult();
+                if(querySnapshots != null){
+                    int i = 0;
+                    for(DocumentSnapshot documentSnapshot : querySnapshots.getDocuments()){
+                        if(i == 0){
+                            top1_username.setText(documentSnapshot.getString("username"));
+                            top1_points.setText(documentSnapshot.getString("points"));
+                        }
+                        if(i == 1){
+                            top2_username.setText(documentSnapshot.getString("username"));
+                            top2_points.setText(documentSnapshot.getString("points"));
+                        }
+                        if(i == 2){
+                            top3_username.setText(documentSnapshot.getString("username"));
+                            top3_points.setText(documentSnapshot.getString("points"));
+                        }
+
+                        i++;
+                    }
+                }
+            }else{
+                //handling with an error pop up
+            }
+        });
+
+
+
+
         //here we will check if the user has a pfp. if it does have we have to draw it as a circlue
+        ImageView user_pfp = findViewById(R.id.user_pfp);
         boolean user_has_pfp = false;
         if(user_has_pfp){
             setCircularImage(user_pfp);
         }
-        TextView user_Username = findViewById(R.id.user_Username);
-        user_Username.setText("Georgebad");
+
+
 
 
         View decorView = getWindow().getDecorView();
