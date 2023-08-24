@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomProgressBarStyle" parent="android:Widget.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/custom_progress_bar</item>
+        <item name="android:minHeight">10dp</item> <!-- Adjust height as needed -->
+        <item name="android:maxHeight">10dp</item> <!-- Adjust height as needed -->
+    </style>
+</resources>

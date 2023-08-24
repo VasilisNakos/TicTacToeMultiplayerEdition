@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TicTacToeMultiplayerEdition">
         <activity
+            android:name=".testactivity"
+            android:exported="false" />
+        <activity
+            android:name=".Matchmaking"
+            android:exported="false" />
+        <activity
+            android:name=".Multiplayer_game"
+            android:exported="false" />
+        <activity
             android:name=".LOG_IN"
             android:exported="false" />
         <activity

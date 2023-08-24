@@ -45,6 +45,14 @@ public class MainScreen extends AppCompatActivity implements Serializable {
         TextView top2_points = findViewById(R.id.top2_user_points);
         TextView top3_username = findViewById(R.id.top3_user_username);
         TextView top3_points = findViewById(R.id.top3_user_points);
+        ImageButton multiplayer_button = findViewById(R.id.multiplayer_button);
+        Intent matchmaking_intent = new Intent(this,Matchmaking.class);
+        multiplayer_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(matchmaking_intent);
+            }
+        });
 
 
 

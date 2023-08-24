@@ -265,7 +265,7 @@
         app:srcCompat="@drawable/brownze_coin" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/multiplayer_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
