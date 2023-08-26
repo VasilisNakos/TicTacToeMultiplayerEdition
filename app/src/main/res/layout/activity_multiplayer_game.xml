@@ -10,7 +10,6 @@
     tools:context=".Multiplayer_game">
 
 
-
     <ImageButton
         android:id="@+id/back_button_multiplayer"
         android:layout_width="wrap_content"
@@ -23,29 +22,33 @@
         app:srcCompat="@drawable/back_button" />
 
     <ImageButton
-        android:id="@+id/imageButton4"
-        android:layout_width="65dp"
-        android:layout_height="68dp"
-        android:layout_marginTop="30dp"
+        android:id="@+id/me_pfp"
+        android:layout_width="67dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="20dp"
         android:background="#FFFFFF"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toStartOf="@+id/textView8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/back_button_multiplayer"
         app:srcCompat="@drawable/empty_pfp" />
 
     <ImageButton
-        android:id="@+id/imageButton5"
-        android:layout_width="64dp"
-        android:layout_height="67dp"
-        android:layout_marginTop="30dp"
+        android:id="@+id/other_user_pfp"
+        android:layout_width="67dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="20dp"
         android:background="#FFFFFF"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView8"
         app:layout_constraintTop_toBottomOf="@+id/back_button_multiplayer"
         app:srcCompat="@drawable/empty_pfp" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/me_username"
         android:layout_width="153dp"
         android:layout_height="65dp"
         android:layout_marginStart="10dp"
@@ -57,10 +60,10 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/textView8"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton4" />
+        app:layout_constraintTop_toBottomOf="@+id/me_pfp" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/other_user_username"
         android:layout_width="147dp"
         android:layout_height="61dp"
         android:layout_marginTop="2dp"
@@ -72,7 +75,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView8"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton5" />
+        app:layout_constraintTop_toBottomOf="@+id/other_user_pfp" />
 
     <ImageView
         android:id="@+id/imageView14"
@@ -81,7 +84,7 @@
         android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/me_username"
         app:srcCompat="@drawable/line_top" />
 
     <ImageView

@@ -6,4 +6,37 @@
     android:layout_height="match_parent"
     tools:context=".Matchmaking">
 
+    <ImageView
+        android:id="@+id/earhts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/earth1" />
+
+    <ImageButton
+        android:id="@+id/back_button_matchmaking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="28dp"
+        android:background="#FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/back_button" />
+
+    <TextView
+        android:id="@+id/waiting_for_opponent_text"
+        android:layout_width="349dp"
+        android:layout_height="42dp"
+        android:fontFamily="casual"
+        android:text="Looking for an oponent . . ."
+        android:textColor="#777777"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/earhts" />
 </androidx.constraintlayout.widget.ConstraintLayout>
