@@ -454,7 +454,25 @@ public class Multiplayer_game extends AppCompatActivity {
                         turn_textview.setText("It's opponents turn");
                         startLoadingTimer(db,game_id,me);
                     }
-                }else{
+                }else if(documentSnapshot.getString("won").equals("tie")){
+                    db.collection("users").document(me.getUid()).get().addOnCompleteListener(this, task1 -> {
+                        if(task1.isSuccessful()){
+                            DocumentSnapshot documentSnapshot1 = task1.getResult();
+                            String data = documentSnapshot1.getString("points");
+                            Integer points = Integer.parseInt(data);
+                            points = points + 50;
+                            Map<String,Object> updates = new HashMap<>();
+                            updates.put("points", points.toString());
+                            db.collection("users").document(me.getUid()).update(updates).addOnCompleteListener(this, task2 ->{
+                                if(task2.isSuccessful()){
+                                    showCustomPopup_won(db,me,game_id,"You won!!! Do you want to play again?");
+                                }
+                            });
+                        }
+                    });
+                    showCustomPopup_won(db,me,game_id,"It's a tie!You earned 50points.Do you want to play again?");
+                }
+                else{
                     if(documentSnapshot.getString("won").equals(me.getUid())){
                         db.collection("users").document(me.getUid()).get().addOnCompleteListener(this, task1 -> {
                             if(task1.isSuccessful()){
@@ -526,7 +544,13 @@ public class Multiplayer_game extends AppCompatActivity {
         if(game_state.get(0).equals(game_state.get(4)) && game_state.get(4).equals(game_state.get(8)) && !game_state.get(0).equals("")){winner = game_state.get(0);}
         if(game_state.get(2).equals(game_state.get(4)) && game_state.get(4).equals(game_state.get(6)) && !game_state.get(0).equals("")){winner = game_state.get(2);}
         System.out.println("the winner is" + winner);
-
+        //we will check if game ended
+        boolean game_ended= true;
+        for(int i = 0; i< game_state.size();i++){
+            if(game_state.get(i).equals("")){
+                game_ended = false;
+            }
+        }
         if(!winner.equals("")){
             Map<String,Object> updates = new HashMap<>();
             updates.put("won",winner);
@@ -535,6 +559,16 @@ public class Multiplayer_game extends AppCompatActivity {
                    System.out.println("databaseupdates");
                }
             });
+        }else{
+            if(game_ended){
+                Map<String,Object> updates = new HashMap<>();
+                updates.put("won","tie");
+                db.collection("games").document(game_id).update(updates).addOnCompleteListener(this, task -> {
+                    if(task.isSuccessful()){
+                        System.out.println("databaseupdates");
+                    }
+                });
+            }
         }
 
 

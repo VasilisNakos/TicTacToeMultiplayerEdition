@@ -5,6 +5,7 @@
     android:id="@+id/log_in_text_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".LOG_IN">
 
     <ImageButton
@@ -30,7 +31,7 @@
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/login_in_email_textfield"
@@ -41,8 +42,9 @@
         android:drawableBottom="@drawable/textview_line"
         android:ems="10"
         android:fontFamily="casual"
+        android:hint="Email"
         android:inputType="text"
-        android:text="Name"
+        android:textColorHint="@color/black"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -88,6 +90,6 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/login_in_button_to_activity_main_screen"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
